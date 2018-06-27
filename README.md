@@ -1,4 +1,16 @@
-This can be used like so
+Given the following boilerplate
+
+```haskell
+{-# LANGUAGE QuasiQuotes #-}
+module Main where
+import           Test.Hspec
+import           Test.Hspec.Subject
+
+main :: IO ()
+main = hspec spec
+```
+
+this can be used like so
 
 ```haskell
 spec :: Spec
@@ -13,6 +25,8 @@ which is equivalent to
 spec :: Spec
 spec = do
   describe "23 + 42" $ do
-    before (return $ 23 + 42) $ do
+    subject (23 + 42) $ do
       it "`shouldBe` 65" (`shouldBe` 65)
 ```
+
+(note that `subject` is just an alias for `before . return`)
